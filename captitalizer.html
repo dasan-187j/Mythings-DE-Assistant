@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Capitalize Tool</title>
+
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#020617;
+      --accent:#22d3ee;
+      --border:#1e293b;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+      background:radial-gradient(circle at top, #1e293b, var(--bg));
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:var(--text);
+    }
+
+    #link1{
+      position:fixed;
+      top:16px;
+      left:16px;
+      text-decoration:none;
+      background:var(--accent);
+      color:#001018;
+      padding:8px 14px;
+      border-radius:12px;
+      font-weight:700;
+      box-shadow:0 6px 20px rgba(34,211,238,.35);
+    }
+
+    .card{
+      width:92%;
+      max-width:720px;
+      background:linear-gradient(180deg,#020617,#020617cc);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:0 30px 60px rgba(0,0,0,.6);
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:22px;
+      text-align:center;
+      letter-spacing:.5px;
+    }
+
+    textarea{
+      width:100%;
+      min-height:360px;
+      background:#020617;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+      font-size:15px;
+      line-height:1.7;
+      color:var(--text);
+      resize:vertical;
+      outline:none;
+    }
+
+    textarea:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 2px rgba(34,211,238,.25);
+    }
+
+    .actions{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:12px;
+      gap:10px;
+    }
+
+    .hint{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    button{
+      padding:10px 18px;
+      border-radius:14px;
+      border:none;
+      background:linear-gradient(135deg,var(--accent),#38bdf8);
+      color:#001018;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 10px 25px rgba(34,211,238,.4);
+      transition:.25s;
+    }
+
+    button:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 30px rgba(34,211,238,.55);
+    }
+  </style>
+</head>
+
+<body>
+
+<a id="link1" href="Weight.html">Home Page</a>
+
+<div class="card">
+  <h1>Smart Capitalize</h1>
+
+  <textarea id="text" placeholder="Paste your text here..."></textarea>
+
+  <div class="actions">
+       <button id="copyBtn">📋 Copy</button>
+  </div>
+</div>
+
+<script>
+  const textEl = document.getElementById('text');
+  const copyBtn = document.getElementById('copyBtn');
+
+  const exceptions = ["in","and","on","at","for","to","from","with","of","about",
+  "above","across","after","against","along","among","around",
+  "before","behind","below","beneath","beside","between","by",
+  "during","except","inside","into","near","off","over","through",
+  "throughout","toward","under","until","up","upon","within",
+  "without","or","our","any"];
+
+  function cap(word){
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }
+
+  function isLatin(word){
+    return /[A-Za-z]/.test(word);
+  }
+
+  function titleCaseLine(line){
+    return line.split(/(\s+)/).map((chunk,i,arr)=>{
+      if(/^\s+$/.test(chunk)) return chunk;
+
+      const parts = chunk.split(/([\-\/\(\)])/);
+
+      const isLineStart = (() => {
+        for(let j=i-1;j>=0;j--){
+          if(arr[j]==="(") return false;
+          if(!/^\s+$/.test(arr[j])) return false;
+        }
+        return true;
+      })();
+
+      return parts.map(p=>{
+        if(/^[\-\/\(\)]$/.test(p)) return p;
+        if(!isLatin(p)) return p;
+
+        const lower = p.toLowerCase();
+        const isException =  exceptions.includes(lower);
+        return isException ? lower : cap(p);
+      }).join('');
+    }).join('');
+  }
+
+  function convert(){
+    textEl.value = textEl.value
+      .split(/\r?\n/)
+      .map(titleCaseLine)
+      .join('\n');
+  }
+
+  textEl.addEventListener('input', convert);
+
+  copyBtn.addEventListener('click', async ()=>{
+    try{
+      await navigator.clipboard.writeText(textEl.value);
+      copyBtn.textContent = "✅ Copied";
+      setTimeout(()=>copyBtn.textContent="📋 Copy",1500);
+    }catch{
+      textEl.select();
+      document.execCommand("copy");
+    }
+  });
+
+  // مثال افتراضي
+ 
+  convert();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Exclusive Tools Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg-main: #0f172a;
+      --card-bg: #111827;
+      --gold: #f5c542;
+      --accent: #38bdf8;
+      --text-main: #e5e7eb;
+      --shadow: rgba(0,0,0,0.6);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e293b, var(--bg-main));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+ #link1{
+      position:fixed;
+      top:16px;
+      left:16px;
+      text-decoration:none;
+      background:var(--accent);
+      color:#001018;
+      padding:8px 14px;
+      border-radius:12px;
+      font-weight:700;
+      box-shadow:0 6px 20px rgba(34,211,238,.35);
+    }
+    .container {
+      background: linear-gradient(145deg, #0b1220, var(--card-bg));
+      padding: 35px 30px;
+      border-radius: 18px;
+      box-shadow: 0 25px 60px var(--shadow);
+      width: 100%;
+      max-width: 520px;
+      border: 1px solid rgba(245,197,66,0.25);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--gold);
+    }
+
+    h2 {
+      text-align: center;
+      margin: 25px 0 20px;
+      font-size: 18px;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: linear-gradient(135deg, #1e293b, #020617);
+      border-radius: 12px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(245,197,66,0.35),
+        transparent
+      );
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(245,197,66,0.25);
+      color: var(--gold);
+    }
+  </style>
+</head>
+
+<body>
+<a id="link1" href="Weight.html">Home Page</a>
+  <div class="container">
+    <h1>🖼 Pics Tools</h1>
+
+
+    <a class="btn" target="_blank" href="https://www.photoroom.com/">Photoroom (Multi Tools)</a>
+    <a class="btn" target="_blank" href="https://www.krea.ai/app">Krea (Multi Tools)</a>
+    <a class="btn" target="_blank" href="https://www.pixelcut.ai/cleanup-pictures">Pixelcut (Erase & Enhance)</a>
+    <a class="btn" target="_blank" href="https://www.canva.com/en_gb/">Canva (Logo & Designs)</a>
+    <a class="btn" target="_blank" href="https://bulkimagecrop.com/">Bulk Image Crop</a>
+    <a class="btn" target="_blank" href="https://bulkresizephotos.com/en?type=exact&width=1100&height=1100&quality=100">Bulk Resize</a>
+    <a class="btn" target="_blank" href="https://www.watermarkremover.io/">Watermark Remover</a>
+    <a class="btn" target="_blank" href="https://cloudinary.com/tools/image-upscale">Cloudinary (Upscale)</a>
+
+  </div>
+</body>
+</html>
